@@ -1,0 +1,51 @@
+---
+
+- name: Linux | Create Packer directory
+  file:
+    path: "{{ packer_path }}"
+    state: directory
+
+- name: Linux | Check if Packer binary exists
+  stat:
+    path: "{{ packer_path }}/packer"
+  register: packer_st
+
+- name: Linux | Check Packer binary version
+  shell: "{{ packer_path }}/packer version | grep '^Packer v' | sed 's/Packer v//'"
+  register: packer_installed
+  changed_when: False
+  when: packer_st.stat.exists
+
+- name: Linux | Download Packer release
+  get_url:
+    url: "{{ packer_url }}"
+    dest: "{{ packer_path }}/{{ packer_file }}"
+    checksum: "{{ packer_checksum }}"
+  when: "(not packer_st.stat.exists) or (packer_installed.stdout != '{{ packer_version }}')"
+
+- name: Linux | Extract Packer binary
+  unarchive:
+    src: "{{ packer_path }}/{{ packer_file }}"
+    dest: "{{ packer_path }}"
+  when: "(not packer_st.stat.exists) or (packer_installed.stdout != '{{ packer_version }}')"
+
+- name: Linux | Cleanup
+  file:
+    path: "{{ packer_path }}/{{ packer_file }}"
+    state: absent
+
+- name: Linux | Symlink packer to /usr/local/bin
+  file:
+    src: "{{ packer_path }}/packer"
+    dest: "{{ packer_bin_dir }}/packer"
+    state: link
+
+- name: Linux | Get Packer version
+  command: packer version
+  register: packer_status
+  changed_when: False
+
+- name: Linux | Check that Packer is not out of date
+  assert:
+    that: "'Packer is out of date' not in packer_status.stdout"
+  when: packer_latest

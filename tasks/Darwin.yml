@@ -1,0 +1,14 @@
+---
+
+- name: OS X | Install Packer
+  homebrew: name=packer
+
+- name: OS X | Get Packer version
+  command: packer --version
+  register: packer_status
+  changed_when: False
+
+- name: OS X | Check that Packer is not out of date
+  assert:
+    that: "'Packer is out of date' not in packer_status.stdout"
+  when: packer_latest
