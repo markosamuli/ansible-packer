@@ -1,10 +1,10 @@
 ---
 
 packer_arch: "amd64"
-packer_version: "0.11.0"
+packer_version: "0.12.2"
 packer_system: "linux"
 packer_file: "packer_{{ packer_version }}_{{ packer_system }}_{{ packer_arch }}.zip"
 packer_url: "https://releases.hashicorp.com/packer/{{ packer_version }}/{{ packer_file }}"
-packer_checksum: "sha256:318ffffa13763eb6f29f28f572656356dc3dbf8d54c01ffddd1c5e2f08593adb"
+packer_checksum: "sha256:035d0ea1fe785ab6b673bc2a79399125d4014f29151e106635fa818bb726bebf"
 packer_bin_dir: /usr/local/bin
 packer_path: "/opt/packer"
