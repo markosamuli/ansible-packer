@@ -4,7 +4,7 @@
   homebrew: name=packer
 
 - name: OS X | Get Packer version
-  command: packer --version
+  command: packer version
   register: packer_status
   changed_when: False
 
