@@ -21,13 +21,13 @@
     url: "{{ packer_url }}"
     dest: "{{ packer_path }}/{{ packer_file }}"
     checksum: "{{ packer_checksum }}"
-  when: "(not packer_st.stat.exists) or (packer_installed.stdout != '{{ packer_version }}')"
+  when: (not packer_st.stat.exists) or (packer_installed.stdout != packer_version)
 
 - name: Linux | Extract Packer binary
   unarchive:
     src: "{{ packer_path }}/{{ packer_file }}"
     dest: "{{ packer_path }}"
-  when: "(not packer_st.stat.exists) or (packer_installed.stdout != '{{ packer_version }}')"
+  when: (not packer_st.stat.exists) or (packer_installed.stdout != packer_version)
 
 - name: Linux | Cleanup
   file:
