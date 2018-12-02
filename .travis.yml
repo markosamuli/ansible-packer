@@ -37,6 +37,10 @@ addons:
     packages:
     - python-pip
 
+cache:
+  directories:
+  - /home/travis/.cache/pre-commit/
+
 before_install:
   # Install Ansible with Homebrew on OS X
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update         ; fi
