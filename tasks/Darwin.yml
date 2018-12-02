@@ -1,7 +1,7 @@
 ---
 
 - name: OS X | Install Packer
-  homebrew:   
+  homebrew:
     name: packer
 
 - name: OS X | Get Packer version
