@@ -16,8 +16,16 @@ On macOS, Homebrew [packer formula](https://formulae.brew.sh/formula/packer) is 
 
 ## Linux
 
-On Ubuntu, packer binary is installed into `/opt/packer` and symlink created 
+On Ubuntu, packer binary is installed into `/opt/packer` and symlink created
 in `/usr/local/bin`.
+
+### Updating release
+
+The following script will get the latest release from GitHub and update configuration:
+
+```bash
+./update-release
+```
 
 To change installed version, update the version and checksum:
 
